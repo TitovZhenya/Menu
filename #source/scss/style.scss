@@ -1,0 +1,356 @@
+/*reset style*/
+*,
+*:before,
+*:after {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+body {
+    line-height: 1;
+}
+ol,
+ul {
+    list-style: none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+/*none select on mobile*/
+*,
+body {
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+input,
+textarea {
+    -moz-user-select: text;
+    -o-user-select: text;
+    -khtml-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+/*main style*/
+$maxWidhtEL: 1140px;
+$maxWidhtXL: 960px;
+$maxWidthMD: 767px;
+
+$breakPointEL: 1140px;
+$breakPointXL: 960px;
+$breakPointMD: 767px;
+
+body {
+    &.mouse .menu__link:after {
+        content: "";
+        display: block;
+        width: 0%;
+        height: 3px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ffce00;
+        transition: width 0.3s ease;
+    }
+    &.mouse .menu__item:hover > .sub-menu {
+        display: flex;
+    }
+    &.mouse .menu__item:hover > .menu__link:after {
+        width: 70%;
+    }
+    &.touch .sub-sub-menu {
+        display: none;
+    }
+    &.touch .sub-sub-menu.active {
+        display: block;
+        position: relative;
+        top: 0;
+    }
+
+    &.touch .arrow {
+        display: block;
+    }
+    @media (max-width: $breakPointMD) {
+        &.lock {
+            overflow: hidden;
+        }
+    }
+}
+.wrapper {
+    height: 100%;
+    transition: all 0.5s ease;
+    &-blur {
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.5);
+    background: #fff;
+    height: 70px;
+    @media (max-width: $breakPointMD) {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 20px;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    &__burger {
+        display: none;
+        @media (max-width: $breakPointMD) {
+            align-self: center;
+            margin-right: 40px;
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 25px;
+            z-index: 4;
+            & span {
+                position: absolute;
+                background-color: #000;
+                left: 0;
+                width: 100%;
+                height: 5px;
+                top: 10px;
+                transition: all 0.3s ease;
+            }
+            &:before,
+            &:after {
+                content: "";
+                position: absolute;
+                background-color: #000;
+                width: 100%;
+                height: 5px;
+                left: 0;
+                transition: all 0.3s ease;
+            }
+            &:before {
+                top: 0;
+            }
+            &:after {
+                bottom: 0;
+            }
+            &.active:after {
+                transform: rotate(-45deg);
+                bottom: 10px;
+                background-color: #ffce00;
+            }
+            &.active:before {
+                transform: rotate(45deg);
+                top: 10px;
+                background-color: #ffce00;
+            }
+            &.active span {
+                transform: scale(0);
+            }
+        }
+    }
+}
+
+.menu {
+    max-width: $maxWidhtEL;
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+    @media (max-width: $breakPointEL) {
+        max-width: $maxWidhtXL;
+    }
+    @media (max-width: $breakPointXL) {
+        max-width: $maxWidthMD;
+    }
+    @media (max-width: $breakPointMD) {
+        position: fixed;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        max-height: 100%;
+        overflow: auto;
+        background-color: #fff;
+        transition: all 0.5s ease-in-out;
+        &.active {
+            top: 0;
+        }
+    }
+    &__list {
+        display: flex;
+        @media (max-width: $breakPointMD) {
+            border-top: 1px solid #d0d3cf;
+            margin-top: 70px;
+            flex-direction: column;
+        }
+    }
+    &__item:first-child {
+        margin-left: 50px;
+        @media (max-width: $breakPointMD) {
+            margin-left: 0;
+        }
+    }
+    &__item {
+        margin: 0 20px;
+        @media (max-width: $breakPointMD) {
+            position: relative;
+            margin: 0;
+        }
+    }
+    &__link {
+        position: relative;
+        display: block;
+        line-height: 70px;
+        padding: 0 20px;
+        font-size: 17px;
+        @media (max-width: $breakPointEL) {
+            padding: 0 10px;
+            font-size: 15px;
+        }
+        @media (max-width: $breakPointXL) {
+            font-size: 14px;
+            padding: 0;
+        }
+        @media (max-width: $breakPointMD) {
+            line-height: 50px;
+            padding: 0 20px;
+            display: inline-block;
+        }
+    }
+    &__arrow {
+        display: none;
+        @media (max-width: $breakPointMD) {
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 12px;
+            margin-right: 15px;
+            padding-left: 10px;
+            border-left: 1px solid #d0d3cf;
+        }
+    }
+    &__arrow img {
+        width: 15px;
+        height: 30px;
+    }
+}
+
+.sub-menu {
+    position: absolute;
+    display: none;
+    width: 100%;
+    left: 0;
+    top: 65px;
+    padding-top: 5px;
+    &__item {
+        text-align: center;
+        flex: 0 1 16.6666%;
+        padding: 15px 5px;
+        @media (max-width: $breakPointMD) {
+            padding: 0;
+        }
+    }
+    &__link {
+        font-size: 17px;
+        @media (max-width: $breakPointEL) {
+            font-size: 15px;
+        }
+        @media (max-width: $breakPointXL) {
+            font-size: 14px;
+        }
+        @media (max-width: $breakPointMD) {
+            line-height: 50px;
+            padding: 0 20px;
+            padding-right: 50px;
+        }
+    }
+    &__wrap {
+        display: flex;
+        width: 100%;
+        background-color: #f4f4f4;
+    }
+    &.active {
+        display: block;
+        position: relative;
+        top: 0;
+    }
+    &.active &__wrap {
+        flex-direction: column;
+    }
+    &.active &__item {
+        position: relative;
+        text-align: left;
+        border-top: 1px solid #d0d3cf;
+    }
+    &.active &__item:last-child {
+        border-bottom: 1px solid #d0d3cf;
+    }
+    &.active &__link {
+        margin-left: 15px;
+    }
+}
+
+.sub-sub-menu {
+    margin-top: 20px;
+    &__item {
+        margin: 10px 0;
+    }
+    &__link {
+        font-size: 14px;
+        @media (max-width: $breakPointMD) {
+            margin-left: 60px;
+            line-height: 50px;
+        }
+    }
+    &.active {
+        margin-top: 0;
+    }
+
+    &.active &__item {
+        margin: 0;
+        border-top: 1px solid #d0d3cf;
+    }
+}
+
+.container {
+    max-width: $maxWidhtEL;
+    margin: 0 auto;
+    padding: 0px 15px;
+    @media (max-width: $breakPointEL) {
+        max-width: $maxWidhtXL;
+    }
+    @media (max-width: $breakPointXL) {
+        max-width: $maxWidthMD;
+    }
+}
+
+.content {
+    padding: 100px 20px;
+    &__text {
+        margin: 15px 0;
+        line-height: 20px;
+        @media (max-width: $breakPointXL) {
+            font-size: 14px;
+        }
+    }
+}
